@@ -6,7 +6,6 @@ import { auth } from "@/auth";
 import { handleActionError, AppError } from "@/lib/utils/errors";
 import { CartItem } from "@/store/useCartStore";
 import crypto from "crypto";
-import { Prisma } from "@prisma/client";
 
 /**
  * Creates a Razorpay order and a PENDING database order.
@@ -53,7 +52,7 @@ export async function createRazorpayOrder(items: CartItem[], shippingAddress: {
     const total = subtotal + tax;
 
     // 3. Create PENDING Order in DB
-    const order = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    const order = await prisma.$transaction(async (tx: any) => {
       // Create or get address
       let address = await tx.address.findFirst({
         where: {
@@ -182,7 +181,7 @@ export async function verifyPaymentSignature(params: {
     }
 
     // 3. Update order + create payment + decrement inventory + clear cart
-    await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    await prisma.$transaction(async (tx: any) => {
       // Update Order Status
       await tx.order.update({
         where: { id: order.id },

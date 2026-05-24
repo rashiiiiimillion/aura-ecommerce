@@ -3,7 +3,6 @@
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { auth } from "../auth";
-import { Prisma } from "@prisma/client";
 
 async function checkAdmin() {
   const session = await auth();
@@ -34,7 +33,7 @@ export async function updatePaymentStatus(orderId: string, status: "PENDING" | "
   
   try {
     // Update order level paymentStatus and the Payment record if it exists
-    await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    await prisma.$transaction(async (tx: any) => {
       await tx.order.update({
         where: { id: orderId },
         data: { paymentStatus: status }
