@@ -39,7 +39,7 @@ export async function createRazorpayOrder(items: CartItem[], shippingAddress: {
     });
 
     for (const item of items) {
-      const dbProduct = dbProducts.find(p => p.id === item.productId);
+      const dbProduct = dbProducts.find((p: any) => p.id === item.productId);
       if (!dbProduct) throw new AppError(`Product ${item.name} not found`, 404);
       if (dbProduct.inventory && dbProduct.inventory.quantity < item.quantity) {
         throw new AppError(`Insufficient inventory for ${item.name}`, 400);
