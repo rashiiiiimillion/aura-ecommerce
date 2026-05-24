@@ -5,6 +5,8 @@ export const metadata = {
   title: "New Product | Admin | AURA",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function NewProductPage() {
   const categories = await prisma.category.findMany();
 

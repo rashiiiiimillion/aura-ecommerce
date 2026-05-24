@@ -12,6 +12,8 @@ export const metadata = {
   title: "Order Details | Admin | AURA",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminOrderDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
   

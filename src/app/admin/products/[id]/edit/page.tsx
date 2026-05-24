@@ -8,6 +8,8 @@ export const metadata = {
   title: "Edit Product | Admin | AURA",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function EditProductPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
   const [productRaw, categories] = await Promise.all([
