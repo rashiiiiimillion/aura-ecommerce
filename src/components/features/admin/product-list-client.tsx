@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Edit, Trash2, Star, Loader2 } from "lucide-react";
+import { Edit, Trash2, Star, Loader2, Archive } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { deleteProduct, toggleFeaturedProduct } from "@/actions/admin-products";
 import { toast } from "sonner";
@@ -14,14 +14,18 @@ export function ProductListClient({ products }: { products: any[] }) {
   const [isToggling, setIsToggling] = useState<string | null>(null);
   const router = useRouter();
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this product?")) return;
+  const handleDelete = async (id: string, hasOrders: boolean) => {
+    const confirmMessage = hasOrders 
+      ? "This product exists in past orders and will be archived instead of permanently deleted. Continue?"
+      : "Are you sure you want to permanently delete this product?";
+      
+    if (!confirm(confirmMessage)) return;
     
     setIsDeleting(id);
     const result = await deleteProduct(id);
     
     if (result.success) {
-      toast.success("Product deleted successfully");
+      toast.success(result.message || "Product deleted successfully");
       router.refresh();
     } else {
       toast.error(result.error || "Failed to delete product");
@@ -119,11 +123,14 @@ export function ProductListClient({ products }: { products: any[] }) {
                     variant="ghost" 
                     size="icon" 
                     className="h-8 w-8 rounded-none text-muted-foreground hover:text-red-500"
-                    onClick={() => handleDelete(product.id)}
+                    onClick={() => handleDelete(product.id, (product._count?.orderItems || 0) > 0)}
                     disabled={isDeleting === product.id}
+                    title={(product._count?.orderItems || 0) > 0 ? "Archive Product" : "Delete Product"}
                   >
                     {isDeleting === product.id ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : (product._count?.orderItems || 0) > 0 ? (
+                      <Archive className="w-4 h-4" />
                     ) : (
                       <Trash2 className="w-4 h-4" />
                     )}

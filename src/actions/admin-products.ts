@@ -16,15 +16,36 @@ export async function deleteProduct(productId: string) {
   await checkAdmin();
   
   try {
-    await prisma.product.delete({
-      where: { id: productId }
+    const orderItemsCount = await prisma.orderItem.count({
+      where: { productId }
     });
+
+    if (orderItemsCount > 0) {
+      // Soft archive if product has been ordered
+      await prisma.product.update({
+        where: { id: productId },
+        data: { isActive: false }
+      });
+    } else {
+      // Hard delete if product has never been ordered
+      await prisma.product.delete({
+        where: { id: productId }
+      });
+    }
+
     revalidatePath("/");
     revalidatePath("/collections");
     revalidatePath("/admin/products");
     revalidatePath("/product/[slug]", "page");
     revalidateTag("products");
-    return { success: true };
+
+    return { 
+      success: true, 
+      action: orderItemsCount > 0 ? "archived" : "deleted",
+      message: orderItemsCount > 0 
+        ? "Product archived successfully. It has been hidden from the storefront because it is part of past orders."
+        : "Product deleted successfully." 
+    };
   } catch (error) {
     console.error("Failed to delete product:", error);
     return { success: false, error: "Failed to delete product" };

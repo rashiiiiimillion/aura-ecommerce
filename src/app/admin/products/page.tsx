@@ -17,7 +17,10 @@ export default async function AdminProductsPage() {
     orderBy: { createdAt: "desc" },
     include: {
       category: true,
-      inventory: true
+      inventory: true,
+      _count: {
+        select: { orderItems: true }
+      }
     }
   });
 
