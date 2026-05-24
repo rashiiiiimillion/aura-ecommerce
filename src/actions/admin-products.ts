@@ -37,7 +37,7 @@ export async function deleteProduct(productId: string) {
     revalidatePath("/collections");
     revalidatePath("/admin/products");
     revalidatePath("/product/[slug]", "page");
-    revalidateTag("products");
+    revalidateTag("products", "max");
 
     return { 
       success: true, 
@@ -64,7 +64,7 @@ export async function toggleFeaturedProduct(productId: string, isFeatured: boole
     revalidatePath("/collections");
     revalidatePath("/admin/products");
     revalidatePath("/product/[slug]", "page");
-    revalidateTag("products");
+    revalidateTag("products", "max");
     return { success: true };
   } catch (error) {
     console.error("Failed to toggle featured status:", error);
@@ -177,7 +177,7 @@ export async function saveProduct(data: any) {
     revalidatePath("/collections");
     revalidatePath("/admin/products");
     revalidatePath("/product/[slug]", "page");
-    revalidateTag("products");
+    revalidateTag("products", "max");
     return { success: true };
   } catch (error: any) {
     console.error("Failed to save product:", error);

@@ -111,7 +111,7 @@ export async function createProduct(data: unknown) {
 
     revalidatePath("/admin/products");
     revalidatePath("/collections");
-    revalidateTag("products");
+    revalidateTag("products", "max");
     
     const serializedProduct = {
       ...product,
