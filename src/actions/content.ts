@@ -2,7 +2,6 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidateTag } from "next/cache";
-import { SectionType } from "@prisma/client";
 
 export async function getHomepageSections() {
   try {
