@@ -9,6 +9,8 @@ export const metadata = {
   title: "Orders | Admin | AURA",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminOrdersPage() {
   const ordersRaw = await prisma.order.findMany({
     orderBy: { createdAt: "desc" },

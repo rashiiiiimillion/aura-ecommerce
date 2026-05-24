@@ -7,6 +7,8 @@ export const metadata = {
   title: "Inventory | Admin | AURA",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminInventoryPage() {
   const inventoryItems = await prisma.inventory.findMany({
     include: {

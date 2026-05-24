@@ -5,6 +5,8 @@ export const metadata = {
   title: "Content Management | Admin | Aura",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function ContentPage() {
   const result = await getAllHomepageSections();
   const sections = 'success' in result && result.data ? result.data : [];

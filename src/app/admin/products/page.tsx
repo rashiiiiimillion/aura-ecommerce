@@ -12,6 +12,8 @@ export const metadata = {
   title: "Products | Admin | AURA",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminProductsPage() {
   const productsRaw = await prisma.product.findMany({
     orderBy: { createdAt: "desc" },

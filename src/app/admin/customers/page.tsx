@@ -6,6 +6,8 @@ export const metadata = {
   title: "Customers | Admin | AURA",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminCustomersPage() {
   const users = await prisma.user.findMany({
     where: { role: "USER" },
