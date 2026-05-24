@@ -5,6 +5,8 @@ export const metadata = {
   title: "Analytics | Admin | AURA",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function AnalyticsPage() {
   // Mock data for analytics due to Prisma SQLite/Postgres grouping complexities in a simple setup
   // In a real production scenario, we would use raw queries for robust time-series data.
