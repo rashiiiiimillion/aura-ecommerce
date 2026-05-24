@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 import crypto from "crypto";
 import { sendOrderConfirmationEmail } from "@/lib/emails";
+import { Prisma } from "@prisma/client";
 
 /**
  * Razorpay Webhook Handler
@@ -73,7 +74,7 @@ export async function POST(req: Request) {
       return new NextResponse(null, { status: 200 });
     }
 
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       // Update Order Status
       await tx.order.update({
         where: { id: order.id },

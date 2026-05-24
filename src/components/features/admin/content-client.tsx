@@ -219,7 +219,6 @@ export function ContentClient({ initialSections }: { initialSections: HomepageSe
                 <ImageUpload 
                   value={formData.image ? [formData.image] : []}
                   onChange={(urls) => setFormData({ ...formData, image: urls[0] || null })}
-                  onRemove={(url) => setFormData({ ...formData, image: null })}
                 />
               </div>
               

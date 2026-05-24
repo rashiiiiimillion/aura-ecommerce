@@ -40,7 +40,6 @@ export async function createHomepageSection(data: any) {
       },
     });
     
-    // @ts-expect-error - Next.js 16 revalidate alignment
     revalidateTag("homepage", "max");
     return { success: true, data: section };
   } catch (error) {
@@ -56,7 +55,6 @@ export async function updateHomepageSection(id: string, data: any) {
       data,
     });
     
-    // @ts-expect-error - Next.js 16 revalidate alignment
     revalidateTag("homepage", "max");
     return { success: true, data: section };
   } catch (error) {
@@ -71,7 +69,6 @@ export async function deleteHomepageSection(id: string) {
       where: { id },
     });
     
-    // @ts-expect-error - Next.js 16 revalidate alignment
     revalidateTag("homepage", "max");
     return { success: true };
   } catch (error) {
@@ -91,7 +88,6 @@ export async function reorderHomepageSections(updates: { id: string; order: numb
       )
     );
     
-    // @ts-expect-error - Next.js 16 revalidate alignment
     revalidateTag("homepage", "max");
     return { success: true };
   } catch (error) {

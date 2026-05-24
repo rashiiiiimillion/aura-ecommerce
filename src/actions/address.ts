@@ -3,6 +3,7 @@
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { handleActionError, AppError } from "@/lib/utils/errors";
+import { Prisma } from "@prisma/client";
 import { addressSchema } from "@/lib/validations";
 
 export async function createAddress(data: unknown) {
@@ -71,7 +72,7 @@ export async function setDefaultAddress(addressId: string) {
       throw new AppError("Authentication required", 401);
     }
 
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       await tx.address.updateMany({
         where: { userId: session.user.id },
         data: { isDefault: false },
