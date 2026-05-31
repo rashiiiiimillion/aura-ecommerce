@@ -106,27 +106,7 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <div className="relative my-8">
-          <div className="absolute inset-0 flex items-center"><div className="w-full border-t" /></div>
-          <div className="relative flex justify-center text-xs uppercase"><span className="bg-background px-4 text-muted-foreground">Or continue with</span></div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <button
-            onClick={() => handleOAuthSignIn("google")}
-            disabled={isLoading}
-            className="border py-3 text-xs uppercase tracking-wider hover:border-foreground transition-colors disabled:opacity-50"
-          >
-            Google
-          </button>
-          <button
-            onClick={() => handleOAuthSignIn("github")}
-            disabled={isLoading}
-            className="border py-3 text-xs uppercase tracking-wider hover:border-foreground transition-colors disabled:opacity-50"
-          >
-            GitHub
-          </button>
-        </div>
+        {/* OAuth buttons removed because credentials are not configured */}
 
         <p className="text-center text-sm text-muted-foreground mt-8">
           Don&apos;t have an account?{" "}
